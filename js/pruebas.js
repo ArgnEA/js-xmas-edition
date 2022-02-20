@@ -13,6 +13,11 @@ function probarValidarNombre() {
           '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111') ===
             'Este campo debe tener menos de 50 caracteres',
                 'Validar nombre no validó que el nombre sea menor a 50 caracteres');
+
+    console.assert(
+        validarNombre(`123456789`) === `El nombre solo debe contener letras`,
+        `Validar nombre no valido que el nombre solo debe contener letras`);
+    
 }
 
 function probarValidarCiudad(){
@@ -41,6 +46,9 @@ function probarValidarRegalo() {
     console.assert(
         validarRegalo('Juguete') === '',
             'Validar regalo no funciono con un regalo valido');
+
+    console.assert(validarRegalo(`*¨[]*A$#%`) === `Este campo solo debe contener letras o numeros`,
+        `Validar regalo no valido que la descripcion contenga solo letras o numeros`)
   }
 
 probarValidarRegalo();

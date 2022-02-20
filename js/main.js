@@ -1,8 +1,17 @@
-const $form = document.querySelector(`#carta-a-santa`);
-const nombre = $form.nombre.value;
-const ciudad = $form.ciudad.value;
-const comportamiento = $form.comportamiento.value;
-const descripcionRegalo = $form[`descripcion-regalo`].value;
+
+function validarFormulario(event){
+
+    const $form = document.querySelector(`#carta-a-santa`);
+    const nombre = $form.nombre.value;
+    const ciudad = $form.ciudad.value;
+    const comportamiento = $form.comportamiento.value;
+    const descripcionRegalo = $form[`descripcion-regalo`].value;
+    
+    event.preventDefault();
+
+}
+
+
 
 function validarNombre(nombre){
     
@@ -14,6 +23,10 @@ function validarNombre(nombre){
         return 'Este campo debe tener menos de 50 caracteres';
     }
     
+    if(!/^[a-z]+$/i.test(nombre)){
+        return `El nombre solo debe contener letras`
+    }
+
     return ``;
 }
 
@@ -36,5 +49,12 @@ function validarRegalo(descripcionRegalo){
         return 'Este campo debe tener menos de 100 caracteres';
     }
     
+    if (!/^[a-z0-9]+$/i.test(descripcionRegalo)) {
+        return `Este campo solo debe contener letras o numeros`
+    }
+
     return ``;
 }
+
+
+$form.onsubmit = validarFormulario;
