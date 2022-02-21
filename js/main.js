@@ -1,16 +1,44 @@
+const $form = document.querySelector(`#carta-a-santa`);
 
 function validarFormulario(event){
-
-    const $form = document.querySelector(`#carta-a-santa`);
+ 
     const nombre = $form.nombre.value;
     const ciudad = $form.ciudad.value;
-    const comportamiento = $form.comportamiento.value;
     const descripcionRegalo = $form[`descripcion-regalo`].value;
-    
-    event.preventDefault();
+    const errores = {
+        nombre: validarNombre(nombre),
+        ciudad: validarCiudad(ciudad),
+        descripcionRegalo: validarRegalo(descripcionRegalo)
+    }
 
+    manejarErrores(errores);
+
+    event.preventDefault();
 }
 
+function manejarErrores(errores){
+    const errorNombre = errores.nombre;
+    const errorCiudad = errores.ciudad;
+    const errorDescripcionRegalo = errores.descripcionRegalo;
+
+    if (errorNombre) {
+        $form.nombre.className = `error`
+    } else{
+        $form.nombre.className = ``
+    }
+
+    if (errorCiudad) {
+        $form.ciudad.className = `error`
+    } else{
+        $form.ciudad.className = ``
+    }
+
+    if (errorDescripcionRegalo) {
+        $form[`descripcion-regalo`].className = `error`
+    } else{
+        $form.descripcionRegalo.className = ``
+    }
+}
 
 
 function validarNombre(nombre){
@@ -57,4 +85,4 @@ function validarRegalo(descripcionRegalo){
 }
 
 
-$form.onsubmit = validarFormulario;
+formulario.onsubmit = validarFormulario;
