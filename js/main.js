@@ -8,38 +8,46 @@ function validarFormulario(event){
     const errores = {
         nombre: validarNombre(nombre),
         ciudad: validarCiudad(ciudad),
-        descripcionRegalo: validarRegalo(descripcionRegalo)
+        'descripcion-regalo': validarRegalo(descripcionRegalo)
     }
 
-    manejarErrores(errores);
+    const esExito = manejarErrores(errores) === 0;
 
+    if (esExito) {
+        $form.className = 'oculto';
+        document.querySelector('#exito').className = '';
+    }
     event.preventDefault();
 }
 
 function manejarErrores(errores){
-    const errorNombre = errores.nombre;
-    const errorCiudad = errores.ciudad;
-    const errorDescripcionRegalo = errores.descripcionRegalo;
 
-    if (errorNombre) {
-        $form.nombre.className = `error`
-    } else{
-        $form.nombre.className = ``
-    }
+    const keys = Object.keys(errores);
+    const $errores = document.querySelector('#errores');
+    limpiarErrores();
+    let cantidadDeErrores = 0;
 
-    if (errorCiudad) {
-        $form.ciudad.className = `error`
-    } else{
-        $form.ciudad.className = ``
-    }
-
-    if (errorDescripcionRegalo) {
-        $form[`descripcion-regalo`].className = `error`
-    } else{
-        $form.descripcionRegalo.className = ``
-    }
+    keys.forEach(function(key){
+    const error = errores[key];
+        if (error) {
+            $form[key].className = 'error';
+            const $error = document.createElement('li');
+            $error.innerText = error;
+            $errores.appendChild($error);
+            cantidadDeErrores++;
+        } else{
+            $form[key].className = ''
+        }
+    })
+    return cantidadDeErrores;
 }
 
+function limpiarErrores() {
+	const errores = document.querySelector("#errores").querySelectorAll("li");
+	errores.forEach(error => {
+		error.parentNode.removeChild(error);
+	});
+}
 
 function validarNombre(nombre){
     
