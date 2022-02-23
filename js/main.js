@@ -16,6 +16,9 @@ function validarFormulario(event){
     if (esExito) {
         $form.className = 'oculto';
         document.querySelector('#exito').className = '';
+        setTimeout(() => {
+			window.location.href = "wishlist.html";
+		}, 5000);
     }
     event.preventDefault();
 }
